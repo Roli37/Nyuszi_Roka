@@ -8,45 +8,34 @@ namespace Nyuszi_Roka.Classes
 {
     public abstract class AbstractAnimal : AbstractEntity
     {
-        public AbstractAnimal(string name, int jollakottsag) : base(name)
+        public AbstractAnimal(string name) : base(name)
         {
-            Jollakottsag = jollakottsag;
         }
 
+        public virtual int Jollakottsag { get; set; }
+        public virtual int MaxJollakottsag { get; set; }
+        public override void Csokken(int n)
+        {
+            if (Jollakottsag>0)
+            {
+                Jollakottsag-= n;
+            }
+        }
         public override void Fejlodik(int n)
         {
             if (Jollakottsag + n <= MaxJollakottsag)
             {
-                MaxJollakottsag += n;
+                Jollakottsag += n;
             }
         }
-        public virtual int MaxJollakottsag { get; set; }
-        public override void Csokken()
-        {
-            if (Jollakottsag>0)
-            {
-                Jollakottsag--;
-            }
-        }
+
         public override void Elpusztul()
         {
             if (Jollakottsag == 0)
             {
-                
+                //dies
             }
         }
 
-        private int jollakottsag;
-        public int Jollakottsag
-        {
-            get
-            {
-                return jollakottsag;
-            }
-            set
-            {
-                jollakottsag = value;
-            }
-        }
     }
 }

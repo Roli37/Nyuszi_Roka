@@ -14,7 +14,7 @@ namespace Nyuszi_Roka.Classes
         }
         public virtual void Elpusztul() { }
         public virtual void Fejlodik(int n) { }
-        public virtual void Csokken() { }
+        public virtual void Csokken(int n) { }
         public string Name { get; set; }
 
     }

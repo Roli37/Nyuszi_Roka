@@ -51,18 +51,22 @@ namespace Nyuszi_Roka.Classes
             {
                 for (int j = 0; j < b; j++)
                 {
-                    if (i != 0 && i != a && j != 0 && j != b)
+                    if (table[i, j] is Grass)
+                    {
+                        table[i, j].Fejlodik(1);
+                    }
+                    if (i != 0 && i != a-1 && j != 0 && j != b-1)
                     {
                         if (table[i, j] is Rabbit)
                         {
                             bool nyuszi_talalt_fuvet = false;
                             for (int k = i - 1; k <= i + 1; k++)
                             {
-                                for (int l = j - 1; l < j + 1; l++)
+                                for (int l = j - 1; l <= j + 1; l++)
                                 {
                                     if (table[k, l] is Grass && nyuszi_talalt_fuvet == false)
                                     {
-                                        int fu_tapertek = table[k, l].ToString()[1];
+                                        int fu_tapertek = int.Parse(table[k, l].ToString().Substring(1, 1));
                                         if (fu_tapertek > 0)
                                         {
                                             table[i, j].Fejlodik(fu_tapertek);
@@ -75,14 +79,53 @@ namespace Nyuszi_Roka.Classes
                             }
                         }
                     }
-                    if (table[i, j] is Grass)
-                    {
-                        table[i, j].Fejlodik(1);
-                    }
                     if (table[i, j] is Rabbit || table[i, j] is Wolf)
                     {
-                        table[i, j].Csokken();
+                        table[i, j].Csokken(1);
                         table[i, j].Elpusztul();
+                    }
+                    if (i != 0 && i != a-1 && j != 0 && j != b-1)
+                    {
+                        if (table[i,j] is Rabbit)
+                        {
+                            if (table[i - 1, j] is Rabbit)
+                            {
+                                if (table[i, j - 1] is Grass) table[i, j - 1] = new Rabbit();
+                            }
+                            if (table[i + 1, j] is Rabbit)
+                            {
+                                if (table[i, j - 1] is Grass) table[i, j - 1] = new Rabbit();
+                            }
+                            if (table[i, j + 1] is Rabbit)
+                            {
+                                if (table[i - 1, j] is Grass) table[i - 1, j] = new Rabbit();
+                            }
+                            if (table[i, j - 1] is Rabbit)
+                            {
+                                if (table[i - 1, j] is Grass) table[i - 1, j] = new Rabbit();
+                            }
+
+                        }
+                    }
+                    if (i != 0 && i != a - 1 && j != 0 && j != b - 1)
+                    {
+                        if (table[i, j] is Wolf)
+                        {
+                            bool roka_talalt_nyuszit = false;
+                            for (int k = i - 1; k <= i + 1; k++)
+                            {
+                                for (int l = j - 1; l <= j + 1; l++)
+                                {
+                                    if (table[k, l] is Rabbit && roka_talalt_nyuszit == false)
+                                    {
+                                        table[i, j].Fejlodik(3);
+                                        table[k, l] = table[i, j];
+                                        table[i, j] = new Grass();
+                                        roka_talalt_nyuszit = true;
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }

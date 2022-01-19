@@ -8,11 +8,12 @@ namespace Nyuszi_Roka.Classes
 {
     public sealed class Rabbit : AbstractAnimal 
     {
-        public Rabbit(string name = "R", int jollakottsag = 1) : base(name, jollakottsag)
+        public Rabbit(string name = "R") : base(name)
         {
         }
 
         private int maxJollakottsag = 5;
+        private int jollakottsag = 1;
         public override int MaxJollakottsag
         {
             get
@@ -22,6 +23,17 @@ namespace Nyuszi_Roka.Classes
             set
             {
                 maxJollakottsag = value;
+            }
+        }
+        public override int Jollakottsag
+        {
+            get
+            {
+                return jollakottsag;
+            }
+            set
+            {
+                jollakottsag = value;
             }
         }
         public override string ToString()
